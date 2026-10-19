@@ -2,7 +2,7 @@
 
 Ein kleines, lokal laufendes Python-Werkzeug für den TXT-Export der
 [Rauschwerk-Autorenwerkstatt](https://rauschwerkverlag.de/buchwerkstatt/).
-Es zeigt, ob die fünf Abschnitte im erwarteten Format vorhanden sind,
+Es zeigt, ob die fünf Werkstattabschnitte im unterstützten Format vorhanden sind,
 welche noch offen sind und wie viel Text jeder enthält. Eine SHA-256-Prüfsumme
 hilft beim Vergleich zweier Dateikopien. Die Datei wird nur gelesen.
 
@@ -34,13 +34,15 @@ python3 check_export.py examples/fiktiver-entwurf.txt
 | KAPITELPLAN | Kann ich meine Gliederung außerhalb des Browsers lesen? |
 | TEXTENTWURF | Sind meine tatsächlichen Formulierungen enthalten? |
 
-Das Werkzeug erkennt die Abschnittsmarken und zählt den Text dazwischen.
-Es beantwortet die Fragen nicht inhaltlich. `(noch offen)` oder ein leerer
-Abschnitt bleibt ein offener Arbeitsstand, kein Fehler. Wortzahlen zählen
+Das Werkzeug prüft die Abschnittsstruktur und zählt den Text darin.
+Es beantwortet die Fragen nicht inhaltlich. Ein leerer oder nur aus Leerraum
+bestehender Abschnitt bleibt offen. Im alten Format vom 8. Oktober gilt auch
+`(noch offen)` als Platzhalter. In TXT 2 und TXT 3 ist diese Zeichenfolge ein
+eigener Textinhalt. Wortzahlen zählen
 durch Leerraum getrennte Einheiten, keine linguistischen Wörter. Zeichen
 sind Python-Unicode-Codepunkte, keine sichtbaren Glyphen.
 
-Ein gültiger Export ergibt Exitcode `0`, auch mit offenen Abschnitten.
+Ein erkanntes unterstütztes Format ergibt Exitcode `0`, auch mit offenen Abschnitten.
 Ein unlesbares, zu großes oder abweichendes Format ergibt `2`.
 UTF-8 mit oder ohne BOM und LF/CRLF-Zeilenenden sind lesbar. Die Prüfsumme
 bezieht sich auf die ursprünglichen Bytes: Schon andere Zeilenenden ändern sie.
@@ -56,26 +58,51 @@ noch Vollständigkeit gegenüber einem früheren Entwurf.
 4. Eine zweite Kopie an einem selbst gewählten Ort sichern. Das Programm erstellt
    keine Sicherung und stellt keine geschlossenen Browser-Tabs wieder her.
 
-Die Buchwerkstatt verwendet für diesen freien Schreibplatz einen temporären
-Speicher im aktuellen Browser-Tab. Ein Download ist deshalb ein eigener
-Arbeitsschritt. Dieses separate Prüfwerkzeug ist eine kleine Ergänzung für
-Menschen, die ihre Texte als lesbare Dateien behalten möchten; der Schreibplatz
-selbst braucht dieses Programm nicht.
+Die Buchwerkstatt bietet inzwischen auch getrennte Kapitel, Projektdateien und
+einen ausgewählten Manuskriptexport. Dieses Prüfprogramm ist für den
+TXT-Entwurf mit den fünf Werkstattabschnitten gedacht. Es erstellt keine
+Projektdatei und wertet weder gespeicherte Fassungen noch separate Kapitel aus.
+Der Schreibplatz selbst braucht dieses Programm nicht.
 
-Das einfache TXT-Format hat keine Escape-Regel für Abschnittsmarken.
-Eine Zeile im eigenen Manuskript, die exakt `BUCHIDEE` oder eine der anderen
-Marken lautet, kann mehrdeutig sein. In diesem Fall stoppt die Prüfung, statt
-einen vermeintlich korrekten Bericht zu erzeugen. Umformatierte Word-Dateien,
-DOCX, PDF und Exportvarianten anderer Werkzeuge werden nicht unterstützt.
-Die Datei darf maximal 2 MiB groß sein.
+## Unterstützte Formatversionen
+
+| Format | Verhalten |
+| --- | --- |
+| Alter Fünf-Abschnitt-Export vom 8. Oktober 2026 | Abschnittsmarken müssen eindeutig sein; bisherige Zählung bleibt erhalten. |
+| Fünf-Abschnitt-Export TXT 2 | Eindeutige Abschnittsmarken; `(noch offen)` wird als eigener Text gezählt. |
+| Fünf-Abschnitt-Export TXT 3 | Die gespeicherten Abschnittslängen bestimmen die Grenzen. Gleichlautende Marken im Nutztext sind damit lesbar. |
+| TXT-Export mit getrennten Kapiteln | Erkannt, aber nicht ausgewertet; Exitcode 2 mit konkretem Hinweis. |
+| Ausgewähltes Manuskript, Projekt-JSON, DOCX, PDF, fremdes oder unbekanntes Format | Nicht unterstützt; Exitcode 2. |
+
+TXT 3 speichert Längen als JavaScript-UTF-16-Einheiten. Der Prüfer liest sie in
+dieser Einheit; Zeichen- und Wortzahlen im Bericht bleiben davon getrennt.
+Ein Emoji kann beispielsweise zwei UTF-16-Einheiten belegen, obwohl Python
+einen Codepunkt zählt. Im TXT-3-Bericht werden führende und abschließende
+Leerzeichen des Abschnitts mitgezählt. Bei älteren Formaten werden diese wie
+bisher für die Zählung entfernt.
+
+Im alten Format und TXT 2 kann eine eigene Zeile wie `BUCHIDEE` mehrdeutig sein.
+Die Prüfung stoppt dann. In TXT 3 stoppt sie bei fehlenden, ungültigen oder nicht
+mehr zum Text passenden Längen. Anders als die Werkstatt mit ihrer manuellen
+Vorschau versucht dieses Kommandozeilenwerkzeug dann keinen Ersatzimport über
+Abschnittsmarken. Die Originaldatei bleibt unverändert; manuelle Änderungen
+können deshalb eine eigene Durchsicht erfordern. Die Datei darf maximal 2 MiB
+groß sein.
+
+Die JSON-Ausgabe enthält zusätzlich `format_version` und
+`coverage: "five-workspace-sections"`. Ein positives Ergebnis bestätigt nur den
+hier beschriebenen Strukturumfang. Es beweist keine Vollständigkeit eines
+Buchprojekts und keine Übereinstimmung mit einem nicht vorliegenden Original.
 
 ## Für KI-Arbeit gilt dieselbe Grenze
 
 Eine formal lesbare Datei sagt nichts über die Richtigkeit ihrer Aussagen aus.
 Das Programm prüft keine Quellen, Rechte, Grammatik oder KI-Veränderungen und
 erteilt keine Veröffentlichungsempfehlung. Änderungen des Werkstatt-Exportformats
-können eine Anpassung dieses Werkzeugs erfordern. Unterstützt wird das am
-8. Oktober 2026 öffentlich bereitgestellte Format.
+können eine Anpassung dieses Werkzeugs erfordern. Die aktuelle TXT-3-Unterstützung
+wurde am 19. Oktober 2026 gegen die öffentlich gelesene Exportfunktion geprüft.
+Die Referenzfälle entstanden aus dieser unveränderten Funktion mit fiktiven
+Eingaben; daraus wird kein vollständiger Browser- oder Nutzertest abgeleitet.
 
 ## Entwicklung und Herkunft
 

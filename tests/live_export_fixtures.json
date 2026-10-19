@@ -1,0 +1,55 @@
+{
+  "current": {
+    "values": [
+      "Fiktiver Testentwurf",
+      "Nur synthetischer Text.",
+      "Testleser",
+      "Ein Kapitel",
+      "Text mit ä und 📖."
+    ],
+    "text": "RAUSCHWERK · MEIN BUCHENTWURF\nArbeitsstand aus dem Schreibplatz · Eigene Eingaben · TXT 3\nAbschnittslängen: [20,23,9,11,18]\n\nARBEITSTITEL\nFiktiver Testentwurf\n\nBUCHIDEE\nNur synthetischer Text.\n\nLESERSCHAFT\nTestleser\n\nKAPITELPLAN\nEin Kapitel\n\nTEXTENTWURF\nText mit ä und 📖.\n\nDieser Export enthält deine Eingaben. Er ist ein Arbeitsentwurf und keine KI-Auswertung oder Veröffentlichungszusage.\nhttps://rauschwerkverlag.de/buchwerkstatt/\n"
+  },
+  "markers": {
+    "values": [
+      "Fiktiv",
+      "Ein Satz\nBUCHIDEE\nWeitere Zeile",
+      "Fiktive Leser",
+      "TEXTENTWURF\nGliederung",
+      "  Eigene Einrückung\n\nKAPITELPLAN\n📚 Ende  "
+    ],
+    "text": "RAUSCHWERK · MEIN BUCHENTWURF\nArbeitsstand aus dem Schreibplatz · Eigene Eingaben · TXT 3\nAbschnittslängen: [6,31,13,22,42]\n\nARBEITSTITEL\nFiktiv\n\nBUCHIDEE\nEin Satz\nBUCHIDEE\nWeitere Zeile\n\nLESERSCHAFT\nFiktive Leser\n\nKAPITELPLAN\nTEXTENTWURF\nGliederung\n\nTEXTENTWURF\n  Eigene Einrückung\n\nKAPITELPLAN\n📚 Ende  \n\nDieser Export enthält deine Eingaben. Er ist ein Arbeitsentwurf und keine KI-Auswertung oder Veröffentlichungszusage.\nhttps://rauschwerkverlag.de/buchwerkstatt/\n"
+  },
+  "empty": {
+    "values": [
+      "Fiktiv",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "text": "RAUSCHWERK · MEIN BUCHENTWURF\nArbeitsstand aus dem Schreibplatz · Eigene Eingaben · TXT 3\nAbschnittslängen: [6,0,0,0,0]\n\nARBEITSTITEL\nFiktiv\n\nBUCHIDEE\n\n\nLESERSCHAFT\n\n\nKAPITELPLAN\n\n\nTEXTENTWURF\n\n\nDieser Export enthält deine Eingaben. Er ist ein Arbeitsentwurf und keine KI-Auswertung oder Veröffentlichungszusage.\nhttps://rauschwerkverlag.de/buchwerkstatt/\n"
+  },
+  "literal_placeholder": {
+    "values": [
+      "Fiktiv",
+      "",
+      "",
+      "",
+      "(noch offen)"
+    ],
+    "text": "RAUSCHWERK · MEIN BUCHENTWURF\nArbeitsstand aus dem Schreibplatz · Eigene Eingaben · TXT 3\nAbschnittslängen: [6,0,0,0,12]\n\nARBEITSTITEL\nFiktiv\n\nBUCHIDEE\n\n\nLESERSCHAFT\n\n\nKAPITELPLAN\n\n\nTEXTENTWURF\n(noch offen)\n\nDieser Export enthält deine Eingaben. Er ist ein Arbeitsentwurf und keine KI-Auswertung oder Veröffentlichungszusage.\nhttps://rauschwerkverlag.de/buchwerkstatt/\n"
+  },
+  "whitespace": {
+    "values": [
+      "  Titel  ",
+      "\n\n Idee\n",
+      "Leser",
+      "Plan",
+      "  \t Satz 📖\n\n  "
+    ],
+    "text": "RAUSCHWERK · MEIN BUCHENTWURF\nArbeitsstand aus dem Schreibplatz · Eigene Eingaben · TXT 3\nAbschnittslängen: [9,8,5,4,15]\n\nARBEITSTITEL\n  Titel  \n\nBUCHIDEE\n\n\n Idee\n\n\nLESERSCHAFT\nLeser\n\nKAPITELPLAN\nPlan\n\nTEXTENTWURF\n  \t Satz 📖\n\n  \n\nDieser Export enthält deine Eingaben. Er ist ein Arbeitsentwurf und keine KI-Auswertung oder Veröffentlichungszusage.\nhttps://rauschwerkverlag.de/buchwerkstatt/\n"
+  },
+  "chapters": {
+    "text": "RAUSCHWERK · MEIN BUCHENTWURF\nArbeitsstand aus dem Schreibplatz · Mit Kapiteln\n\nARBEITSTITEL\nFiktiver Testentwurf\n\nBUCHIDEE\nNur synthetischer Text.\n\nLESERSCHAFT\nTestleser\n\nKAPITELPLAN\nEin Kapitel\n\nTEXTENTWURF\nText mit ä und 📖.\n\nKAPITELTEXTE\nKAPITEL 1: Fiktives Kapitel\n\nLESERFRAGE\nTestfrage\n\nNÄCHSTER SCHRITT\nTestschritt\n\nTEXT\nKein Nutzermanuskript.\n\nDieser Export enthält deine Eingaben. Er ist ein Arbeitsentwurf und keine KI-Auswertung oder Veröffentlichungszusage.\nhttps://rauschwerkverlag.de/buchwerkstatt/\n"
+  }
+}
